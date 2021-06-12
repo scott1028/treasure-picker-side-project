@@ -1,0 +1,28 @@
+- `next.js`
+  - Ref: https://nextjs.org/docs/advanced-features/src-directory
+- `styled-components`
+  - Ref: https://dev.to/aprietof/nextjs--styled-components-the-really-simple-guide----101c
+  - Ref: https://github.com/styled-components/babel-plugin-styled-components/issues/78
+  - Ref: https://binyamin.medium.com/solving-the-styled-components-warning-in-next-js-with-babel-83080e45a0ff
+- `redux`
+  - Ref: https://github.com/kirill-konshin/next-redux-wrapper (choosen)
+  - Ref: https://github.com/kirill-konshin/next-redux-wrapper#getserversideprops
+  - Ref: https://redux.js.org/api/applymiddleware
+  - Ref: https://github.com/rt2zz/redux-persist#basic-usage
+  - Ref: https://www.robinwieruch.de/redux-persist-next-js
+  - Ref: https://dev.to/waqasabbasi/server-side-rendered-app-with-next-js-react-and-redux-38gf (deprecated)
+  - Ref: https://github.com/vercel/next.js/blob/canary/packages/next/pages/_app.tsx#L21
+- `redux` devTools
+  - Ref: https://chrome.google.com/webstore/detail/redux-devtools/lmhkpmbekcpmknklioeibfkpmmfibljd?hl=en
+  - Ref: http://extension.remotedev.io/
+  - Ref: https://github.com/zalmoxisus/redux-devtools-extension#14-using-in-production
+  - Ref: https://react-redux.js.org/api/hooks#examples-1 (If you page is not updated, after store changed)
+- `react` devTools
+  - Ref: https://chrome.google.com/webstore/detail/react-developer-tools/fmkadmapgofadopljbjfkapdkoienihi?hl=en
+- `redux-persist failed to create sync storage. falling back to noop storage`
+  - Ref: https://github.com/vercel/next.js/discussions/15687
+    - Ref: https://github.com/vercel/next.js/discussions/15687#discussioncomment-45319
+- `font-awesome`
+  - Ref: https://fontawesome.com/v5.15/how-to-use/on-the-web/using-with/react
+  - Ref: https://stackoverflow.com/questions/67652612/chunkloaderror-loading-chunk-node-modules-next-dist-client-dev-noop-js-failed
+
