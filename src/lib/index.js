@@ -58,7 +58,5 @@ export const showModal = ({
   ReactDOM.render(<Component {...props} onClosed={() => onClosed(false)} onCompleted={onCompleted} />, root);
 });
 
-export const ACTIVE = 'ACTIVE';
-export const INACTIVE = 'INACTIVE';
-export const FRAME_GAP = 500;
+export const FRAME_GAP = 1000;
 export const INVALID_TIME_VALUE = '有效輸入範圍為整數 1 ~ 1440 分鐘!';

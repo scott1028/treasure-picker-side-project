@@ -12,7 +12,7 @@ export const getLogger = () => {
   const loggerLevel = isBrowserMode
     ? _.chain(localStorage)
       .invoke('getItem', 'LOGGER_LEVEL')
-      .defaultTo(ERROR_LEVEL)
+      .defaultTo(process?.env?.LOGGER_LEVEL)
       .parseInt()
       .value()
     : _.chain(process)

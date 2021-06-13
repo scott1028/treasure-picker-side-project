@@ -1,6 +1,6 @@
 import { useRouter } from 'next/router';
 
-export default () => {
+export const aboutPage = () => {
   const router = useRouter();
   return (
     <div>
@@ -9,3 +9,5 @@ export default () => {
     </div>
   )
 };
+
+export default aboutPage;

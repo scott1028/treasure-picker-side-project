@@ -9,6 +9,10 @@ import {
   SectionTitle,
 } from '../components';
 
+import {
+  getLogger,
+} from '../lib/logger';
+
 const ModalWrapper = styled.div`
   z-index: 1;
   position: fixed;
@@ -38,6 +42,8 @@ const ModalContent = styled.div`
   min-height: 400px;
   border-radius: 3px;
   padding: 15px;
+  overflow-y: auto;
+  overflow-x: hidden;
 
   @media only screen and (max-height: 860px) {
     margin-top: 30px;
@@ -54,7 +60,8 @@ const ModalContent = styled.div`
     margin-top: 2vh;
   }
 
-  @media only screen and (max-width: 720px) {    
+  @media only screen and (max-height: 720px),
+  @media only screen and (max-width: 720px) {
     margin-left: 0;
     margin-right: 0;
     margin-top: 0;
@@ -96,7 +103,10 @@ const AvatarWrapper = styled.div`
 const Wrapper = styled.div`
 `;
 
-export const HurrayModal = ({ onClosed, user }) => {
+const logger = getLogger();
+
+export const HurrayModal = ({ onClosed, user, endTime }) => {
+  logger.DEBUG('endTime:', endTime);
   return (
     <ModalWrapper>
       <ModalCurtain />

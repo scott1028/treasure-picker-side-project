@@ -39,6 +39,7 @@ export const SectionTitle = styled.h2`
 export const SectionContainer = styled.div`
   display: flex;
   flex-direction: column;
+  position: relative;
 `;
 
 export const Button = styled.button`

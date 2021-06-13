@@ -3,8 +3,6 @@ import Image from 'next/image'
 import { useState, useEffect, useCallback } from 'react';
 import { useStore, useDispatch, connect } from 'react-redux';
 import styled from 'styled-components';
-import { faUserTie } from '@fortawesome/free-solid-svg-icons';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import _ from 'lodash';
 
 import {
@@ -13,7 +11,6 @@ import {
   fetchAPI,
   isBrowserMode,
   showModal,
-  ACTIVE,
   FRAME_GAP,
   INVALID_TIME_VALUE,
 } from '../lib';
@@ -23,7 +20,7 @@ import {
 import {
   SET_TIME,
   UNSET_TIME,
-  CHECK_TERMINATE,
+  CHECK_OR_UPDATE_TERMINATE,
 } from '../lib/actions';
 import {
   Wrapper,
@@ -40,6 +37,9 @@ import {
 import {
   AlertModal,
 } from '../components/AlertModal';
+import {
+  UserList,
+} from '../components/UserList';
 
 import styles from '../styles/Home.module.css'
 
@@ -58,20 +58,16 @@ const TimerWrapper = styled.div`
   }
 `;
 
-const UserItem = styled.div`
-  margin-bottom: 30px;
-
-  & .icon {
-    margin-right: 20px;
-  }
-`;
-
 const LotteryPage = ({ time: initTime, users, modalStatus }) => {
-  const store = useStore();
   const now = Date.now();
-  const [time, setTime] = useState(getMinutesGapFromMillionseconds(initTime));
+  const timeValue = getHumanReadableTimerBySecond({ value: initTime - now, formatter: value => value / 1000 });
+  const store = useStore();
+  // NOTE: Make default UI value to 1 if null found in store
+  const [time, setTime] = useState(_.chain(getMinutesGapFromMillionseconds(initTime)).clamp(1, 1440));
   const [currentTimestamp, setCurrentTimestamp] = useState(now);
   const dispatch = useDispatch();
+
+  // NOTE: set-up a timer for this component
   useEffect(() => {
     const iterator = {
       done: false,
@@ -79,7 +75,6 @@ const LotteryPage = ({ time: initTime, users, modalStatus }) => {
         const done = this?.done;
         const now = Date.now();
         !done && setCurrentTimestamp(now);
-        dispatch({ type: CHECK_TERMINATE });
         await new Promise(res => setTimeout(res, FRAME_GAP));
         return {
           done,
@@ -100,8 +95,22 @@ const LotteryPage = ({ time: initTime, users, modalStatus }) => {
     };
   }, []);
 
+  // NOTE: modal alert handler
+  useEffect(() => {
+    const now = Date.now();
+    logger.DEBUG('initTime/now', initTime, now);
+    if (now >= initTime && initTime !== null) {
+      dispatch({ type: UNSET_TIME });
+      const user = _.chain(users).sample().value();
+      showModal({ component: HurrayModal, props: { user, endTime: initTime } });
+    }
+  }, [
+    timeValue, // NOTE: current page timer tick
+    initTime,  // NOTE: set-up timer changed
+  ]);
+
   const onSetTimeBtnClicked = useCallback(async ({ value }) => {
-    const time = _.chain(value).parseInt().ceil(0).value();
+    const time = _.chain(+value).ceil(0).value();
     if (!_.chain(time).clamp(0, 1440).isEqual(time).value()) {
       await showModal({ component: AlertModal, props: { message: INVALID_TIME_VALUE } });
       return;
@@ -109,17 +118,6 @@ const LotteryPage = ({ time: initTime, users, modalStatus }) => {
     dispatch({ type: SET_TIME, payload: { value: time } });
   });
 
-  useEffect(() => {
-    logger.DEBUG('initTime', initTime);
-    if (initTime === null && modalStatus === ACTIVE) {
-      dispatch({ type: UNSET_TIME });
-      const user = _.chain(users).sample().value();
-      showModal({ component: HurrayModal, props: { user } });
-    }
-  }, [
-    initTime,
-    modalStatus,
-  ]);
   return (
     <div className={styles.container}>
       <Head>
@@ -137,6 +135,10 @@ const LotteryPage = ({ time: initTime, users, modalStatus }) => {
                 min="0"
                 type="number"
                 value={_.chain(time).ceil(0).value()}
+                onKeyPress={({ target, code }) =>
+                  _.chain(code).isEqual('Enter').thru(value => {
+                    value && onSetTimeBtnClicked({ value: time });
+                  }).value()}
                 onInput={({ target }) => setTime(target?.value)}
               />
               <HorizontalStretch />
@@ -147,23 +149,14 @@ const LotteryPage = ({ time: initTime, users, modalStatus }) => {
               </Button>
             </Wrapper>
             <TimerWrapper className="timer">
-              { getHumanReadableTimerBySecond({ value: initTime - now, formatter: value => value / 1000 }) }
+              { timeValue }
             </TimerWrapper>
           </SectionContainer>
         </Wrapper>
         <Wrapper className="left-side">
           <SectionTitle>參加抽獎名單</SectionTitle>
           <SectionContainer>
-            {
-              users.map(item => {
-                return (
-                  <UserItem key={item?.id} style={{ color: item?.color }}>
-                    <FontAwesomeIcon icon={faUserTie} size="6x" className="icon" />
-                    { item?.userName }
-                  </UserItem>
-                );
-              })
-            }
+            <UserList users={users} />
           </SectionContainer>
         </Wrapper>
       </Layout>
