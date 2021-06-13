@@ -1,5 +1,14 @@
 - `next.js`
   - Ref: https://nextjs.org/docs/advanced-features/src-directory
+  - Ref: https://github.com/facebook/react/blob/7a60a8092144e8ab2c85c6906dd4a7a5815cff1f/src/renderers/dom/fiber/ReactDOMFiberComponent.js#L1022 (Weird warning)
+    - Ref: https://github.com/vercel/next.js/issues/8186
+    - Ref: https://github.com/vercel/next.js/issues/8174
+    - Ref: https://nextjs.org/docs/advanced-features/dynamic-import#basic-usage
+    - Ref: https://stackoverflow.com/questions/45350360/react-16-warning-warning-js36-warning-did-not-expect-server-html-to-contain-a (no idea)
+- `redux-persist` & `next.js` & `font-awesome` SSR issue
+  - Ref: https://stackoverflow.com/questions/57609931/next-js-with-fortawesome-and-ssr/62494995 (choosen)
+  - Ref: https://github.com/styled-components/babel-plugin-styled-components
+  - Ref: https://www.robinwieruch.de/redux-persist-next-js  
 - `styled-components`
   - Ref: https://dev.to/aprietof/nextjs--styled-components-the-really-simple-guide----101c
   - Ref: https://github.com/styled-components/babel-plugin-styled-components/issues/78
@@ -25,4 +34,3 @@
 - `font-awesome`
   - Ref: https://fontawesome.com/v5.15/how-to-use/on-the-web/using-with/react
   - Ref: https://stackoverflow.com/questions/67652612/chunkloaderror-loading-chunk-node-modules-next-dist-client-dev-noop-js-failed
-

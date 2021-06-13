@@ -18,6 +18,9 @@ import {
   INVALID_TIME_VALUE,
 } from '../lib';
 import {
+  getLogger
+} from '../lib/logger';
+import {
   SET_TIME,
   UNSET_TIME,
   CHECK_TERMINATE,
@@ -39,6 +42,8 @@ import {
 } from '../components/AlertModal';
 
 import styles from '../styles/Home.module.css'
+
+const logger = getLogger();
 
 const TimerWrapper = styled.div`
   display: flex;
@@ -105,7 +110,7 @@ const LotteryPage = ({ time: initTime, users, modalStatus }) => {
   });
 
   useEffect(() => {
-    console.log('initTime', initTime);
+    logger.DEBUG('initTime', initTime);
     if (initTime === null && modalStatus === ACTIVE) {
       dispatch({ type: UNSET_TIME });
       const user = _.chain(users).sample().value();
