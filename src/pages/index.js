@@ -74,7 +74,9 @@ const LotteryPage = React.memo(({ time: initTime, users }) => {
   const [currentTimestamp, setCurrentTimestamp] = useState(now);
   const dispatch = useDispatch();
 
-  // NOTE: set-up a timer for this component. to re-perform once user set up a new timer.
+  /* NOTE: set-up a timer for this component. to re-perform once user set up a new timer.
+           async iterator with devTool and `debugger` cause `Warning: unstable_flushDiscreteUpdates`
+   */
   useEffect(() => {
     const iterator = {
       done: initTime === null ? true : false,
@@ -101,6 +103,19 @@ const LotteryPage = React.memo(({ time: initTime, users }) => {
       iterator.done = true;
     };
   }, [initTime]);
+
+  // NOTE: use setInterval instead of iterator timer
+  // useEffect(() => {
+  //   let tid = setInterval(() => {
+  //     const done = (initTime === null) ? true : false;
+  //     const now = Date.now();
+  //     !done && setCurrentTimestamp(now);
+  //   }, FRAME_GAP);
+  //   return () => {
+  //     // NOTE: make timer done
+  //     tid && clearInterval(tid);
+  //   };
+  // }, [initTime]);
 
   // NOTE: modal alert handler
   useEffect(() => {
