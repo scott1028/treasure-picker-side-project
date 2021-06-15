@@ -3,10 +3,38 @@ import { faUserTie } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 const UserItem = styled.div`
+  position: relative;
   margin-bottom: 30px;
 
   & .icon {
     margin-right: 20px;
+    text-align: left;
+  }
+
+  && svg {
+    max-width: 50%;
+  }
+
+  & .user-picture,
+  & .username {
+    display: inline;
+  }
+
+  @media only screen and (max-width: 600px) {
+    && svg {
+      margin-left: 50%;
+      transform: translateX(-50%);
+    }
+
+    & .username {
+      display: block;
+      text-align: center;
+    }
+
+    .icon {
+      margin-right: 0px;
+      text-align: center;
+    }
   }
 `;
 
@@ -26,8 +54,8 @@ export const UserList = ({ users }) => {
         users.map(item => {
           return (
             <UserItem key={item?.id} style={{ color: item?.color }}>
-              <FontAwesomeIcon icon={faUserTie} size="6x" className="icon" />
-              { item?.userName }
+              <div className="user-picture"><FontAwesomeIcon icon={faUserTie} size="6x" className="icon" /></div>
+              <div className="username">{ item?.userName }</div>
             </UserItem>
           );
         })

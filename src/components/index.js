@@ -16,6 +16,12 @@ export const Layout = styled.div`
   display: grid;
   grid-template-columns: minmax(300px, 1fr) minmax(150px, 350px);
 
+  @media only screen and (max-width: 800px) {
+    // NOTE: "minmax(150px)" will break the full RWD view
+    // grid-template-columns: auto minmax(150px, auto);
+    grid-template-columns: auto auto;
+  }
+
   & > .main {
     display: grid;
     grid-template-rows: 80px 1fr;
@@ -33,6 +39,13 @@ export const SectionTitle = styled.h2`
   &.align-left {
     text-align: left;
     padding-left: 25px;
+  }
+
+  // NOTE: if sreen width is super small, your page will still be broken. I think it better to design another layout
+  @media only screen and (max-width: 600px) {
+    font-size: 1em;
+    line-height: 1.5em;
+    overflow-y: hidden;
   }
 `;
 
@@ -81,6 +94,10 @@ export const Input = styled.input`
   padding-left: 10px;
   padding-right: 10px;
   min-width: 120px;
+
+  @media only screen and (max-width: 460px) {
+    margin-bottom: 10px;
+  }
 `;
 
 export const HorizontalStretch = styled.div`

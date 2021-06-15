@@ -5,6 +5,7 @@
     - Ref: https://github.com/vercel/next.js/issues/8174
     - Ref: https://nextjs.org/docs/advanced-features/dynamic-import#basic-usage
     - Ref: https://stackoverflow.com/questions/45350360/react-16-warning-warning-js36-warning-did-not-expect-server-html-to-contain-a (no idea)
+  - Ref: https://nextjs.org/docs/api-reference/next/head (mobile viewport tag)
 - `redux-persist` & `next.js` & `font-awesome` SSR issue
   - Ref: https://stackoverflow.com/questions/57609931/next-js-with-fortawesome-and-ssr/62494995 (choosen)
   - Ref: https://github.com/styled-components/babel-plugin-styled-components
