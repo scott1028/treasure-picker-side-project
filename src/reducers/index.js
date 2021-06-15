@@ -5,7 +5,6 @@ import {
   getMillionsecondsFromMinutes,
 } from '../lib';
 import {
-  TICK,
   SET_TIME,
   UNSET_TIME,
   CHECK_OR_UPDATE_TERMINATE,
@@ -15,10 +14,8 @@ export const reducer = (state = { tick: 'init' }, action) => {
   switch (action?.type) {
     case HYDRATE:
       // Attention! This will overwrite client state! Real apps should use proper reconciliation.
-      // NOTE: dispatch inside getStaticProps/getServerSideProps
+      // NOTE: triggered once getStaticProps/getServerSideProps is dispatched by next.js
       return { ...state, ...action?.payload };
-    case TICK:
-      return { ...state, tick: action?.payload };
     default:
       return state;
   }

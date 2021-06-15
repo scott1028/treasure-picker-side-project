@@ -1,3 +1,4 @@
+import React from 'react';
 import Head from 'next/head'
 import Image from 'next/image'
 import { useState, useEffect, useCallback } from 'react';
@@ -58,7 +59,7 @@ const TimerWrapper = styled.div`
   }
 `;
 
-const LotteryPage = ({ time: initTime, users, modalStatus }) => {
+const LotteryPage = React.memo(({ time: initTime, users }) => {
   const now = Date.now();
   const timeValue = getHumanReadableTimerBySecond({ value: initTime - now, formatter: value => value / 1000 });
   const store = useStore();
@@ -67,10 +68,10 @@ const LotteryPage = ({ time: initTime, users, modalStatus }) => {
   const [currentTimestamp, setCurrentTimestamp] = useState(now);
   const dispatch = useDispatch();
 
-  // NOTE: set-up a timer for this component
+  // NOTE: set-up a timer for this component. to re-perform once user set up a new timer.
   useEffect(() => {
     const iterator = {
-      done: false,
+      done: initTime === null ? true : false,
       async next() {
         const done = this?.done;
         const now = Date.now();
@@ -93,7 +94,7 @@ const LotteryPage = ({ time: initTime, users, modalStatus }) => {
       // NOTE: make iterator done
       iterator.done = true;
     };
-  }, []);
+  }, [initTime]);
 
   // NOTE: modal alert handler
   useEffect(() => {
@@ -162,7 +163,7 @@ const LotteryPage = ({ time: initTime, users, modalStatus }) => {
       </Layout>
     </div>
   )
-}
+});
 
 LotteryPage.getInitialProps = async ({ req }) => {
   const apiHost = _.chain(req)
@@ -182,5 +183,4 @@ LotteryPage.getInitialProps = async ({ req }) => {
 // NOTE: https://github.com/kirill-konshin/next-redux-wrapper#getserversideprops
 export default connect(state => ({
   time: state?.timer?.value,
-  modalStatus: state?.timer?.modalStatus,
 }))(LotteryPage);

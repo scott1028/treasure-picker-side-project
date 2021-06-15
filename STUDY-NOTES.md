@@ -34,3 +34,5 @@
 - `font-awesome`
   - Ref: https://fontawesome.com/v5.15/how-to-use/on-the-web/using-with/react
   - Ref: https://stackoverflow.com/questions/67652612/chunkloaderror-loading-chunk-node-modules-next-dist-client-dev-noop-js-failed
+- `react.memo`
+ - Ref: https://reactjs.org/docs/react-api.html#reactmemo
