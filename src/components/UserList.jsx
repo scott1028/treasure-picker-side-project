@@ -1,6 +1,8 @@
+import React from 'react';
 import styled from 'styled-components';
 import { faUserTie } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import _ from 'lodash';
 
 const UserItem = styled.div`
   position: relative;
@@ -47,7 +49,10 @@ const Wrapper = styled.div`
   overflow-y: auto;
 `;
 
-export const UserList = ({ users }) => {
+/* NOTE: That Props such as array/object works based off of reference/pointer.
+    Ref: https://dmitripavlutin.com/use-react-memo-wisely/#11-custom-equality-check-of-props
+ */
+export const UserList = React.memo(({ users }) => {
   return (
     <Wrapper>
       {
@@ -62,4 +67,4 @@ export const UserList = ({ users }) => {
       }
     </Wrapper>
   );
-};
+}, (preProps, nextProps) => _.chain(preProps).isEqual(nextProps).value());

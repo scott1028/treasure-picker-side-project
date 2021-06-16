@@ -37,7 +37,11 @@
   - Ref: https://stackoverflow.com/questions/67652612/chunkloaderror-loading-chunk-node-modules-next-dist-client-dev-noop-js-failed
 - `react.memo`
   - Ref: https://reactjs.org/docs/react-api.html#reactmemo
+  - Once your property is object, array such those type which is wrapped with reference or pointer base.
+    - Ref: https://dmitripavlutin.com/use-react-memo-wisely/
 - `react_devtools_backend.js:2560 Warning: unstable_flushDiscreteUpdates: Cannot flush updates when React is already rendering` (TODO: no idea for now)
   - caused by `debugger` triggered during re-rendering. In this project it's cause by asyns iterator or timer such as `setInterval`,
     when you open devTool with `debugger` turned on.
   - Ref: https://github.com/facebook/react/issues/20141
+- With `React Development Tools extension`, how to find your re-rendered component!
+  - Ref: https://www.youtube.com/watch?v=4U37IRrt_zQ&t=387s
